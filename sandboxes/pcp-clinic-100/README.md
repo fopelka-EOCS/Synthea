@@ -34,7 +34,15 @@ python sandboxes/pcp-clinic-100/assign_panels.py --pilot \
   --reference-date 2026-11-26
 ```
 
-For the full clinic, drop `--pilot` and set `-p` to at least the panel target total. With the default seed, `assign_panels.py` reports that total in `summary.json` (`panel_target_total`). Generate a few percent more patients than the target; any extra patients are left unassigned and reported.
+To build the full clinic (199,337 patients with the default seed), use the resumable batch builder:
+
+```bash
+JAVA=/path/to/java bash sandboxes/pcp-clinic-100/build_clinic.sh
+```
+
+Finished batches go to `E:/Synthea-Sandboxes/pcp-clinic-100` (override with `OUT=`), in about 260 GB in total. Raw batches are temporary: they sit under `./output/` and are deleted once each batch has been trimmed and its patient count checked.
+
+To run the steps by hand instead, drop `--pilot` and set `-p` to at least the panel target total. With the default seed, `assign_panels.py` reports that total in `summary.json` (`panel_target_total`). Generate a few percent more patients than the target; any extra patients are left unassigned and reported.
 
 The seeds (`-s`, `-cs`), the reference date (`-r`) and `--seed` fix the output, so a run with the same inputs produces the same population.
 
